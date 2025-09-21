@@ -1,0 +1,15 @@
+./setup-database.sql
+./test-patient.json
+./test-senior-heat-alerts.j
+./test-weather-scenarios.js
+./test-whatsapp-weather.js
+./setup-database.sql
+./test-patient.json
+./test-senior-heat-alerts.js
+./test-weather-scenarios.js
+./test-whatsapp-weather.js
+./setup-whatsapp-demo.js
+.env
+./prisma/dev.db
+./demo-comprehensive-alerts.js
+./demo-weather-alert.js

@@ -1,0 +1,29 @@
+{
+  "name": "care-cast",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run index.js",
+    "worker": "bun run worker.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.893.0",
+    "@google/generative-ai": "^0.24.1",
+    "@prisma/client": "^6.16.2",
+    "axios": "^1.12.2",
+    "body-parser": "^2.2.0",
+    "bullmq": "^5.58.7",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "ioredis": "^5.7.0",
+    "openai": "^5.22.0",
+    "prisma": "^6.16.2",
+    "redis": "^5.8.2",
+    "twilio": "^5.10.0"
+  }
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatCare - Registration Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .info-box ul {
+            color: #555;
+            padding-left: 20px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        .whatsapp-info {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .whatsapp-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 10px 0;
+        }
+
+        .home-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="success-icon">✅</div>
+        <h1>Registration Complete!</h1>
+        <p class="subtitle">Welcome to HeatCare! Your personalized health monitoring is now active.</p>
+
+        <div class="whatsapp-info">
+            <h3>📱 WhatsApp Integration</h3>
+            <p>You'll receive health alerts and check-ins on WhatsApp at:</p>
+            <div class="whatsapp-number">+14155238886</div>
+            <p><small>This is the Twilio Sandbox number for development</small></p>
+        </div>
+
+        <div class="info-box">
+            <h3>🌡️ What to Expect:</h3>
+            <ul>
+                <li><strong>Daily Check-ins:</strong> Morning health status messages</li>
+                <li><strong>Weather Alerts:</strong> Notifications during extreme heat conditions</li>
+                <li><strong>Personalized Advice:</strong> Health tips based on your profile and current weather</li>
+                <li><strong>Emergency Detection:</strong> Immediate assistance for urgent symptoms</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>💬 How to Interact:</h3>
+            <ul>
+                <li>Send health updates: "I have a headache" or "I'm feeling fine"</li>
+                <li>Update your location: "Update zip 90210"</li>
+                <li>Emergency help: Text "911" for immediate assistance</li>
+                <li>Opt out anytime: Text "STOP" to disable alerts</li>
+            </ul>
+        </div>
+
+        <a href="/" class="home-button">← Back to Dashboard</a>
+    </div>
+</body>
+
+</html>

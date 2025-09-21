@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatCare - Health Information Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .emergency-note {
+            background: #fee;
+            border: 2px solid #fcc;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            color: #c33;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .privacy-note {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌡️</div>
+            <h1>Welcome to HeatCare</h1>
+            <p class="subtitle">Help us personalize your health monitoring by sharing some basic information</p>
+        </div>
+
+        <form id="onboardingForm">
+            <!-- Basic Information -->
+            <div class="form-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+1234567890" required>
+            </div>
+
+            <div class="form-group">
+                <label for="zipcode">ZIP Code <span class="required">*</span></label>
+                <input type="text" id="zipcode" name="zipcode" placeholder="12345" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age <span class="required">*</span></label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+
+            <!-- Contact Preferences -->
+            <div class="form-group">
+                <label for="optOut">Message Preferences</label>
+                <select id="optOut" name="optOut">
+                    <option value="false">✅ Send me personalized health alerts</option>
+                    <option value="true">❌ Opt out of customized messages</option>
+                </select>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="form-group">
+                <label for="emergencyContact">Emergency Contact (Family/Neighbor/Healthcare Provider)</label>
+                <input type="text" id="emergencyContact" name="emergencyContact" placeholder="Name and phone number">
+            </div>
+
+            <!-- Health Information -->
+            <div class="form-group">
+                <label for="medications">Current Medications</label>
+                <textarea id="medications" name="medications" rows="3"
+                    placeholder="List any medications you're taking (helps us understand heat sensitivity)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Pre-existing or Chronic Conditions</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="diabetes" name="conditions" value="diabetes">
+                        <label for="diabetes">Diabetes</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="heart_disease" name="conditions" value="heart_disease">
+                        <label for="heart_disease">Heart Disease</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="kidney_disease" name="conditions" value="kidney_disease">
+                        <label for="kidney_disease">Kidney Disease</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hypertension" name="conditions" value="hypertension">
+                        <label for="hypertension">High Blood Pressure</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="copd" name="conditions" value="copd">
+                        <label for="copd">COPD/Lung Disease</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="none" name="conditions" value="none">
+                        <label for="none">None of the above</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lifestyle Information -->
+            <div class="form-group">
+                <label for="smoker">Do you smoke?</label>
+                <select id="smoker" name="smoker">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="isPregnant">Are you pregnant?</label>
+                <select id="isPregnant" name="isPregnant">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="activityLevel">Activity Level</label>
+                <select id="activityLevel" name="activityLevel">
+                    <option value="low">Low - Mostly indoors, limited movement</option>
+                    <option value="moderate">Moderate - Some outdoor activity, regular movement</option>
+                    <option value="high">High - Work outdoors, exercise regularly</option>
+                </select>
+            </div>
+
+            <!-- Dialysis Information -->
+            <div class="form-group">
+                <label for="dialysisSchedule">Dialysis Schedule (if applicable)</label>
+                <input type="text" id="dialysisSchedule" name="dialysisSchedule"
+                    placeholder="e.g., Monday, Wednesday, Friday at 9 AM">
+            </div>
+
+            <!-- Hospital Information -->
+            <div class="form-group">
+                <label for="hospitalVisits">Recent Hospital Visits</label>
+                <textarea id="hospitalVisits" name="hospitalVisits" rows="2"
+                    placeholder="Any recent hospital visits or ongoing treatments"></textarea>
+            </div>
+
+            <div class="emergency-note">
+                <strong>🚨 Emergency Notice:</strong> This service is for health monitoring only. For medical
+                emergencies, always call 911 immediately.
+            </div>
+
+            <div class="privacy-note">
+                <strong>🔒 Privacy & Consent:</strong> By submitting this form, you consent to receiving personalized
+                health alerts via WhatsApp. Your data is securely stored and used only for health monitoring. You can
+                opt out anytime by texting "STOP".
+            </div>
+
+            <button type="submit" class="submit-btn">🚀 Complete Setup</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('onboardingForm').addEventListener('submit',async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {};
+
+            // Get all form data
+            for (let [key,value] of formData.entries()) {
+                if (key === 'conditions') {
+                    if (!data.conditions) data.conditions = [];
+                    data.conditions.push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Convert boolean strings
+            data.optOut = data.optOut === 'true';
+            data.smoker = data.smoker === 'true';
+            data.isPregnant = data.isPregnant === 'true';
+            data.age = parseInt(data.age);
+
+            // Split medications by lines/commas
+            if (data.medications) {
+                data.medications = data.medications.split(/[,\n]/).map(m => m.trim()).filter(m => m);
+            } else {
+                data.medications = [];
+            }
+
+            try {
+                const response = await fetch('/api/onboarding',{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('✅ Registration complete! You will start receiving personalized health alerts on WhatsApp.');
+                    window.location.href = '/success';
+                } else {
+                    const error = await response.json();
+                    alert('❌ Registration failed: ' + error.message);
+                }
+            } catch (error) {
+                alert('❌ Network error. Please try again.');
+                console.error('Error:',error);
+            }
+        });
+
+        // Handle "none" checkbox exclusivity
+        document.getElementById('none').addEventListener('change',function () {
+            if (this.checked) {
+                document.querySelectorAll('input[name="conditions"]:not(#none)').forEach(cb => cb.checked = false);
+            }
+        });
+
+        // Uncheck "none" when other conditions are selected
+        document.querySelectorAll('input[name="conditions"]:not(#none)').forEach(cb => {
+            cb.addEventListener('change',function () {
+                if (this.checked) {
+                    document.getElementById('none').checked = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

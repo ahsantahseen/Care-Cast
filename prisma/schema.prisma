@@ -1,0 +1,159 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Patient {
+  id                    Int      @id @default(autoincrement())
+  
+  // Basic Information
+  firstName             String
+  phoneNumber           String   @unique
+  zipcode               String
+  age                   Int
+  
+  // Consent and Preferences
+  optOutCustomMessages  Boolean  @default(false)
+  consentGiven          Boolean  @default(false)
+  consentDate           DateTime?
+  
+  // Contact Information
+  familyContactName     String?
+  familyContactPhone    String?
+  familyContactRelation String?
+  familyContactConsent  Boolean  @default(false)
+  
+  healthcareProviderName     String?
+  healthcareProviderHospital String?
+  healthcareProviderPhone    String?
+  healthcareProviderConsent  Boolean  @default(false)
+  
+  // Medical Information
+  medications           Json? // JSON array of medication names
+  preExistingConditions Json? // JSON array of condition codes
+  chronicConditions     Json? // JSON array of chronic condition codes
+  hospital              String?
+  dialysisSchedule      String?
+  
+  // Lifestyle Factors
+  smoker                Boolean  @default(false)
+  isPregnant              Boolean  @default(false)
+  activityLevel         String   @default("moderate") // low, moderate, high
+  
+  // System Fields
+  riskLevel             String   @default("medium") // low, medium, high
+  monitoringEnabled     Boolean  @default(true)
+  preferredLanguage     String   @default("en")
+  registrationComplete  Boolean  @default(false)
+  lastHealthCheck       DateTime?
+  
+  // Risk Tracking Fields
+  lastRiskLevel         String?   // Latest calculated risk level
+  lastUrgency           String?   // Latest urgency assessment
+  lastEscalationLevel   String?   // Latest escalation level
+  lastMonitoringInterval Int?      // Latest monitoring interval in minutes
+  lastSymptomText       String?   // Latest symptom description
+  lastAnalysisTimestamp DateTime? // When the last analysis was performed
+  lastWeatherTemp       Float?    // Temperature during last analysis
+  lastWeatherHumidity   Float?    // Humidity during last analysis
+  confidenceScore       Float?    // AI confidence in last analysis
+  emergencyAlerted      Boolean   @default(false) // Whether emergency was flagged
+  
+  // Tracking
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  // Relations
+  messages              Message[]
+  healthAnalyses        HealthAnalysis[]
+  monitoringJobs        MonitoringJob[] @relation("MonitoringJobs")
+  
+  @@map("patients")
+}
+
+model Message {
+  id           Int      @id @default(autoincrement())
+  from         String
+  to           String
+  body         String
+  direction    String   // 'incoming' | 'outgoing' | 'system'
+  messageType  String   @default("whatsapp") // 'whatsapp' | 'daily_health_check' | 'ai_symptom_check' | 'ai_analysis'
+  messageSid   String?  // Twilio message SID
+  status       String?  // Message status from Twilio
+  errorMessage String?  // Error message if failed or analysis data
+  mediaUrl     String?  // Media URL for WhatsApp
+  mediaType    String?  // Media content type
+  numMedia     Int      @default(0) // Number of media attachments
+  
+  // Relations
+  patientId    Int?
+  patient      Patient? @relation(fields: [patientId], references: [id])
+  
+  createdAt    DateTime @default(now())
+  
+  @@map("messages")
+}
+
+model HealthAnalysis {
+  id                    Int      @id @default(autoincrement())
+  
+  // Patient relation
+  patientId             Int
+  patient               Patient  @relation(fields: [patientId], references: [id])
+  
+  // Analysis input
+  symptomsText          String
+  currentTemperature    Float?
+  
+  // Analysis results
+  riskLevel             String   // CRITICAL, HIGH, MODERATE, LOW
+  riskScore             Float
+  confidence            Float
+  symptomsDetected      Json? // JSON array of detected symptom categories
+  reasoning             Json? // JSON array of risk factors
+  immediateActions      Json? // JSON array of recommended actions
+  
+  // Monitoring recommendation
+  monitoringPattern     String   // CRITICAL, HIGH, MODERATE
+  monitoringIntervals   Json? // JSON array of check-in intervals in minutes
+  monitoringDuration    Int      // Duration in minutes
+  
+  // Response
+  responseMessage       String   // Generated personalized response
+  monitoringScheduled   Boolean  @default(false)
+  
+  // Tracking
+  createdAt             DateTime @default(now())
+  
+  @@map("health_analyses")
+}
+
+model MonitoringJob {
+  id              Int      @id @default(autoincrement())
+  
+  // Patient relation
+  patientId       Int
+  patient         Patient  @relation(fields: [patientId], references: [id], name: "MonitoringJobs")
+  
+  // Job details
+  jobType         String   // daily_health_check, ai_symptom
+  jobId           String   @unique // BullMQ job ID
+  riskLevel       String?  // For AI symptom monitoring
+  checkNumber     Int?     // For AI symptom monitoring
+  totalChecks     Int?     // For AI symptom monitoring
+  
+  // Status
+  status          String   @default("scheduled") // scheduled, completed, failed, cancelled
+  scheduledFor    DateTime
+  completedAt     DateTime?
+  
+  // Tracking
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@map("monitoring_jobs")
+}
