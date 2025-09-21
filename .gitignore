@@ -13,3 +13,4 @@
 ./prisma/dev.db
 ./demo-comprehensive-alerts.js
 ./demo-weather-alert.js
+node_modules
