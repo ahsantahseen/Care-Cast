@@ -1,4 +1,4 @@
-# Storm Logic - HeatCare Health Monitoring System
+# Care Cast - HeatCare Health Monitoring System
 
 A comprehensive health monitoring system that provides personalized weather alerts, health check-ins, and emergency detection via WhatsApp integration.
 
